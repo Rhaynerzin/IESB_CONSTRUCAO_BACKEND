@@ -4,10 +4,11 @@ const router = express.Router()
 const PessoaModel = require('../models/PessoaModel')
 
 // importo os validadores
+const { validarNovaPessoa } = require('../validators/PessoaValidator')
 
 // Rotas
 // Cadastro
-router.post('/pessoas', async (req, res, next) => {
+router.post('/pessoas', validarNovaPessoa, async (req, res, next) => {
   const dados = req.body
   const pessoaCadastrada = await PessoaModel.create(dados)
   res.status(201).json(pessoaCadastrada)
